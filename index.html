@@ -84,7 +84,7 @@ main{padding:28px;max-width:1600px;width:100%;margin:auto}.page-head{display:fle
     <div id="goalsList" class="task-list"></div>
     <section id="goalDetail" style="display:none;margin-top:18px;padding-top:18px;border-top:1px solid var(--line)"></section>
   </section>
-  <section class="card" id="rulesSection" style="display:none;margin-top:16px"><h2>Moje zasady działania</h2><p>Możesz zapisać własne przypomnienia. Zapis odbywa się w tej przeglądarce.</p><textarea class="notes" id="rulesText" style="min-height:150px" placeholder="Np. Maksymalnie 3 aktywne priorytety. Odpoczynek nie jest porażką. Nie zaczynam nowego projektu tylko dlatego, że pojawił się ciekawy pomysł."></textarea><button class="primary" id="saveRules" style="margin-top:10px">Zapisz zasady</button></section>
+  <section class="card" id="rulesSection" style="display:none;margin-top:16px"><h2>Moje zasady działania</h2><p>Możesz zapisać własne przypomnienia. Po zalogowaniu zasady są synchronizowane z Twoim kontem.</p><textarea class="notes" id="rulesText" style="min-height:150px" placeholder="Np. Maksymalnie 3 aktywne priorytety. Odpoczynek nie jest porażką. Nie zaczynam nowego projektu tylko dlatego, że pojawił się ciekawy pomysł."></textarea><button class="primary" id="saveRules" style="margin-top:10px">Zapisz zasady</button></section>
 </main>
 </div>
 <div class="toast" id="toast"></div>
@@ -237,5 +237,7 @@ tasks.forEach(t=>{t.completionObserved=t.status==='Ukończone';if(!t.reviewedAt)
 normalizeActive();updateTaskType();switchView('ranking');
 $('dateLabel').textContent=new Intl.DateTimeFormat('pl-PL',{month:'long',year:'numeric'}).format(new Date());render();refreshGoalOptions();updateScore();
 </script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="cloud.js"></script>
 </body>
 </html>
