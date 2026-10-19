@@ -1,9 +1,21 @@
 (async function(){
 const box=document.createElement('section');
-box.className='card';box.style.marginBottom='18px';
-box.innerHTML='<h2>Konto i synchronizacja</h2><form id="cloudAuth" style="display:flex;gap:8px;flex-wrap:wrap"><input class="text-input" style="max-width:270px" type="email" id="cloudEmail" placeholder="E-mail" autocomplete="username" required><input class="text-input" style="max-width:270px" type="password" id="cloudPassword" placeholder="Hasło (minimum 8 znaków)" autocomplete="current-password" minlength="8" required><button class="primary">Zaloguj</button><button class="secondary" type="button" id="cloudRegister">Utwórz konto</button></form><p id="cloudStatus" role="status">Łączenie…</p><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="secondary" id="cloudRetry">Odśwież / ponów zapis</button><button class="secondary" id="cloudImport">Przenieś dane lokalne na konto</button><button class="secondary" id="cloudExport">Pobierz kopię danych</button><button class="secondary" id="cloudLogout">Wyloguj</button></div>';
-document.querySelector('main').prepend(box);
-const status=m=>$('cloudStatus').textContent=m;
+box.className='card';box.id='settingsSection';box.hidden=true;box.style.marginTop='18px';
+box.innerHTML='<h2>Konto i synchronizacja</h2><section class="cloud-group"><h3>Konto</h3><p id="cloudAccount" class="cloud-account"></p><form id="cloudAuth" class="cloud-actions"><input class="text-input" style="max-width:270px" type="email" id="cloudEmail" placeholder="E-mail" autocomplete="username" aria-label="E-mail" required><input class="text-input" style="max-width:270px" type="password" id="cloudPassword" placeholder="Hasło (minimum 8 znaków)" autocomplete="current-password" aria-label="Hasło" minlength="8" required><button class="primary">Zaloguj</button><button class="secondary" type="button" id="cloudRegister">Utwórz konto</button></form><button class="secondary" id="cloudLogout" hidden>Wyloguj</button></section><section class="cloud-group"><h3>Synchronizacja</h3><p id="cloudStatus" role="status">Łączenie…</p><div class="cloud-actions"><button class="secondary" id="cloudRetry">Odśwież / ponów zapis</button><button class="secondary" id="cloudImport" hidden>Przenieś dane lokalne na konto</button></div><p class="small-note">Przeniesienie danych lokalnych zastępuje obecne dane na koncie.</p></section><section class="cloud-group"><h3>Kopie zapasowe</h3><p class="small-note">Pobierz zadania, cele i zasady jako plik JSON.</p><button class="secondary" id="cloudExport">Pobierz kopię danych</button></section>';
+document.querySelector('main').append(box);
+const badge=document.createElement('button');badge.type='button';badge.className='cloud-summary';badge.id='cloudSummary';badge.setAttribute('aria-label','Status synchronizacji — otwórz ustawienia');badge.textContent='☁ Łączenie…';badge.onclick=()=>switchView('settings');document.querySelector('.date-pill').after(badge);
+const baseSwitch=switchView;
+switchView=function(view){baseSwitch(view);box.hidden=!!user&&view!=='settings'};
+const status=m=>{
+ $('cloudStatus').textContent=m;badge.title=m;
+ const saved=/^(Zapisano w chmurze|Zsynchronizowano)/.test(m);
+ const pending=/^(Oczekuje|Łączenie|Logowanie)/.test(m);
+ const localMode=m.startsWith('Tryb lokalny');
+ const message=/^(Sprawdź pocztę)/.test(m);
+ badge.dataset.state=saved?'saved':pending||localMode||message?'pending':'error';
+ badge.textContent=saved?'☁ Zapisano':pending?'☁ Zapisywanie / łączenie…':localMode?'☁ Tryb lokalny':message?'✉ Potwierdź konto':'⚠ Sprawdź ustawienia';
+};
+
 const appNodes=[...document.querySelector('main').children].filter(n=>n!==box);
 const lock=b=>{appNodes.forEach(n=>n.inert=b);document.querySelector('.sidebar').inert=b};
 let client,user=null,ready=false,dirty=false,busy=false,revision=0,timer,conflict=false;
@@ -12,7 +24,7 @@ const snapshot=()=>({tasks,goals,rules:$('rulesText').value});
 function apply(p){
  if(!p||!Array.isArray(p.tasks)||!Array.isArray(p.goals)||typeof p.rules!=='string')throw Error('Nieprawidłowy format danych');
  tasks=p.tasks;goals=p.goals;$('rulesText').value=p.rules;selectedGoalId=null;$('goalDetail').style.display='none';
- resetForm();refreshGoalOptions();render();renderGoals();switchView('ranking');
+ const view=window.plannerView||'ranking';resetForm();refreshGoalOptions();render();renderGoals();switchView(view);
 }
 function cache(){if(user)localStorage.setItem('wazne-cloud-'+user.id,JSON.stringify({payload:snapshot(),revision,dirty}));}
 function changed(){if(!ready)return;dirty=true;cache();status(user?'Oczekuje na zapis…':'Tryb lokalny — zaloguj się, aby synchronizować.');clearTimeout(timer);timer=setTimeout(push,600);}
@@ -38,6 +50,7 @@ async function push(){
 }
 async function activate(session){
  user=session?.user||null;ready=false;revision=0;conflict=false;
+ box.hidden=!!user&&window.plannerView!=='settings';$('cloudAccount').textContent=user?user.email:'Zaloguj się, aby korzystać z tych samych danych na telefonie i komputerze.';
  $('cloudAuth').hidden=!!user;$('cloudLogout').hidden=!user;$('cloudImport').hidden=!user;
  if(!user){dirty=false;apply(local);lock(false);status('Tryb lokalny — zaloguj się, aby synchronizować.');return}
  lock(true);
