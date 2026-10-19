@@ -14,6 +14,7 @@ main{padding:28px;max-width:1600px;width:100%;margin:auto}.page-head{display:fle
 .goal-card{border:1px solid var(--line);border-radius:12px;padding:14px;margin-top:12px}.goal-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.progress{height:8px;background:#edf1f7;border-radius:8px;overflow:hidden;margin:8px 0}.progress span{display:block;height:100%;background:var(--green)}.stage{margin:12px 0;padding:12px;background:#f8faff;border-radius:10px}.stage-head{display:flex;justify-content:space-between;gap:8px;align-items:center}.goal-actions{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px}.status-select{padding:5px;border:1px solid var(--line);border-radius:7px;font-size:11px;background:white}.inline-add{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.inline-add input{flex:1;min-width:150px}.muted{color:var(--muted);font-size:12px}
 @media(max-width:1050px){.app{grid-template-columns:72px 1fr}.sidebar{padding:20px 8px}.brand{justify-content:center;margin:0 0 20px}.brand>div:last-child,.nav span,.quote{display:none}.nav{justify-content:center;font-size:20px;padding:12px}.layout{grid-template-columns:1fr}.form-card{position:static}.form-card form{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.form-card h2,.form-card .full{grid-column:1/-1}.criteria-wrap{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.score-box{align-self:start}}
 @media(max-width:650px){.app{display:block}.sidebar{position:sticky;top:0;z-index:5;flex-direction:row;border-right:0;border-bottom:1px solid var(--line);padding:8px;justify-content:space-around}.brand{margin:0}.brand-icon{width:34px;height:34px}.nav{padding:9px;min-width:42px}.page-head{display:block}.page-head h1{font-size:23px}.date-pill{display:inline-block;margin-top:12px}.page-head p{font-size:13px}main{padding:15px}.card{padding:14px}.form-card form{display:block}.criteria-wrap{display:block}.bottom-grid,.stats{grid-template-columns:1fr}.task{grid-template-columns:30px minmax(90px,1fr) 52px;gap:7px}.task-score{font-size:13px}.filters{width:100%}.filters select{flex:1;min-width:0}.rank-head{align-items:flex-start}.rank-head h2{margin-bottom:8px}}
+[hidden]{display:none!important}.cloud-summary{font-size:12px;padding:7px 10px;border-radius:20px;background:var(--card);color:var(--muted);border:1px solid var(--line);max-width:100%;text-align:left}.cloud-summary[data-state="error"]{color:#a33232}.cloud-summary[data-state="saved"]{color:#16814f}.cloud-group{padding:16px 0;border-bottom:1px solid var(--line)}.cloud-group:last-child{border-bottom:0}.cloud-group h3{margin:0 0 10px;font-size:15px}.cloud-actions{display:flex;gap:8px;flex-wrap:wrap}.cloud-account{overflow-wrap:anywhere}@media(max-width:650px){.sidebar{overflow-x:auto;justify-content:flex-start}.sidebar>.nav,.sidebar>.brand{flex-shrink:0}}
 </style>
 </head>
 <body>
@@ -27,6 +28,7 @@ main{padding:28px;max-width:1600px;width:100%;margin:auto}.page-head{display:fle
   <button class="nav" data-view="goals">◎ <span>Cele</span></button>
   <button class="nav" data-view="archive">▣ <span>Archiwum</span></button>
   <button class="nav" data-view="rules">◎ <span>Moje zasady</span></button>
+  <button class="nav" data-view="settings" aria-label="Ustawienia" title="Ustawienia">⚙ <span>Ustawienia</span></button>
   <div class="quote">„Małe kroki też prowadzą do dużych celów.”</div>
 </aside>
 <main>
@@ -184,6 +186,8 @@ function updateTaskType(){
 }
 function switchView(view){
  document.querySelectorAll('[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+ window.plannerView=view;
+ const settings=$('settingsSection');if(settings)settings.hidden=view!=='settings';
  const add=view==='add',list=view==='ranking';
  $('workspaceLayout').style.display=add||list?'grid':'none';
  $('workspaceLayout').style.gridTemplateColumns='minmax(0,1fr)';
@@ -199,7 +203,7 @@ function switchView(view){
  if(view==='active')renderActive();
  $('rulesSection').style.display=view==='rules'?'block':'none';
  $('goalsSection').style.display=view==='goals'?'block':'none';
- $('pageTitle').textContent=({archive:'Archiwum',review:'Do przeglądu',active:'Aktywne zadania — maksymalnie 3',add:'Dodaj zadanie lub cel',ranking:'Ranking Twoich zadań',goals:'Cele długoterminowe',rules:'Moje zasady'})[view];
+ $('pageTitle').textContent=({settings:'Ustawienia',archive:'Archiwum',review:'Do przeglądu',active:'Aktywne zadania — maksymalnie 3',add:'Dodaj zadanie lub cel',ranking:'Ranking Twoich zadań',goals:'Cele długoterminowe',rules:'Moje zasady'})[view];
  if(list){$('rankTitle').textContent='Ranking zadań';renderTasks()}
  if(view==='goals')renderGoals();
 }
@@ -238,6 +242,6 @@ normalizeActive();updateTaskType();switchView('ranking');
 $('dateLabel').textContent=new Intl.DateTimeFormat('pl-PL',{month:'long',year:'numeric'}).format(new Date());render();refreshGoalOptions();updateScore();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="cloud.js"></script>
+<script src="cloud.js?v=settings-1"></script>
 </body>
 </html>
