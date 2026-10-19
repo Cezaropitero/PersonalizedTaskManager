@@ -15,7 +15,55 @@ main{padding:28px;max-width:1600px;width:100%;margin:auto}.page-head{display:fle
 @media(max-width:1050px){.app{grid-template-columns:72px 1fr}.sidebar{padding:20px 8px}.brand{justify-content:center;margin:0 0 20px}.brand>div:last-child,.nav span,.quote{display:none}.nav{justify-content:center;font-size:20px;padding:12px}.layout{grid-template-columns:1fr}.form-card{position:static}.form-card form{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}.form-card h2,.form-card .full{grid-column:1/-1}.criteria-wrap{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.score-box{align-self:start}}
 @media(max-width:650px){.app{display:block}.sidebar{position:sticky;top:0;z-index:5;flex-direction:row;border-right:0;border-bottom:1px solid var(--line);padding:8px;justify-content:space-around}.brand{margin:0}.brand-icon{width:34px;height:34px}.nav{padding:9px;min-width:42px}.page-head{display:block}.page-head h1{font-size:23px}.date-pill{display:inline-block;margin-top:12px}.page-head p{font-size:13px}main{padding:15px}.card{padding:14px}.form-card form{display:block}.criteria-wrap{display:block}.bottom-grid,.stats{grid-template-columns:1fr}.task{grid-template-columns:30px minmax(90px,1fr) 52px;gap:7px}.task-score{font-size:13px}.filters{width:100%}.filters select{flex:1;min-width:0}.rank-head{align-items:flex-start}.rank-head h2{margin-bottom:8px}}
 [hidden]{display:none!important}.cloud-summary{font-size:12px;padding:7px 10px;border-radius:20px;background:var(--card);color:var(--muted);border:1px solid var(--line);max-width:100%;text-align:left}.cloud-summary[data-state="error"]{color:#a33232}.cloud-summary[data-state="saved"]{color:#16814f}.cloud-group{padding:16px 0;border-bottom:1px solid var(--line)}.cloud-group:last-child{border-bottom:0}.cloud-group h3{margin:0 0 10px;font-size:15px}.cloud-actions{display:flex;gap:8px;flex-wrap:wrap}.cloud-account{overflow-wrap:anywhere}@media(max-width:650px){.sidebar{overflow-x:auto;justify-content:flex-start}.sidebar>.nav,.sidebar>.brand{flex-shrink:0}}
+
+:root{--accent-soft:#d7e7ff;--surface-soft:#f8faff;--track:#edf1f7;--bg:#c5dcff}
+:root[data-theme="pink"]{--bg:#ffb3d6;--card:#fffafd;--text:#49283b;--muted:#805d71;--line:#e7abc8;--blue:#ad2264;--accent-soft:#ffd1e6;--surface-soft:#fff2f8;--track:#f1dce7}
+:root[data-theme="lavender"]{--bg:#ccb2f5;--card:#fefcff;--text:#342a50;--muted:#726487;--line:#c4a8e7;--blue:#7036af;--accent-soft:#e3d1ff;--surface-soft:#f6f1ff;--track:#e8e0f2}
+:root[data-theme="mint"]{--bg:#9de5c5;--card:#fcfffd;--text:#233e35;--muted:#59796c;--line:#9dcdb7;--blue:#176c49;--accent-soft:#c5f3dc;--surface-soft:#f0faf5;--track:#dcede3}
+:root[data-theme="sand"]{--bg:#ebc88e;--card:#fffdf8;--text:#483a2a;--muted:#7c6c56;--line:#d6b989;--blue:#86551b;--accent-soft:#f6dfb5;--surface-soft:#faf4e9;--track:#ece1d0}
+:root[data-theme="blue"][data-intensity="light"]{--bg:#f4f7fb}
+:root[data-theme="blue"][data-intensity="medium"]{--bg:#dce9fd}
+:root[data-theme="pink"][data-intensity="light"]{--bg:#fff0f5}
+:root[data-theme="pink"][data-intensity="medium"]{--bg:#ffd2e6}
+:root[data-theme="lavender"][data-intensity="light"]{--bg:#f2effc}
+:root[data-theme="lavender"][data-intensity="medium"]{--bg:#dfd0f9}
+:root[data-theme="mint"][data-intensity="light"]{--bg:#edf8f3}
+:root[data-theme="mint"][data-intensity="medium"]{--bg:#c5efdc}
+:root[data-theme="sand"][data-intensity="light"]{--bg:#f8f2e8}
+:root[data-theme="sand"][data-intensity="medium"]{--bg:#f2ddbb}
+:root[data-panels="dark"]{color-scheme:dark;--card:#101014;--text:#f5f5f8;--muted:#c3c3ce;--line:#41414b;--surface-soft:#23232b;--track:#34343f;--accent-soft:#252b38;--blue:#91baff}
+:root[data-panels="dark"][data-theme="pink"]{--blue:#ff9aca;--accent-soft:#3d2031}
+:root[data-panels="dark"][data-theme="lavender"]{--blue:#c9a5ff;--accent-soft:#30223f}
+:root[data-panels="dark"][data-theme="mint"]{--blue:#7be2af;--accent-soft:#17382b}
+:root[data-panels="dark"][data-theme="sand"]{--blue:#f3c77f;--accent-soft:#3b2e1e}
+.sidebar,.date-pill,.stat,.secondary,.text-input,.notes,.select,.status-select{background:var(--card);color:var(--text);border-color:var(--line)}
+.nav{color:var(--muted)}.nav.active,.rank-num{background:var(--accent-soft);color:var(--blue)}
+.bar,.progress,.category-track{background:var(--track)}
+.stage,.mini{background:var(--surface-soft);color:var(--text)}
+.hint{background:var(--accent-soft);color:var(--text);border-color:var(--line)}
+.task{border-color:var(--line)}
+:root[data-panels="dark"] .page-head{color:#17141d}
+:root[data-panels="dark"] .page-head p{color:#3e3548}
+:root[data-panels="dark"] .primary,:root[data-panels="dark"] .brand-icon{color:#101014}
+:root[data-panels="dark"] .score-box{background:#332b16;border-color:#6d5a26}
+:root[data-panels="dark"] .score-label{color:#f4d982}
+:root[data-panels="dark"] .rank-num.top{background:#173c2b;color:#8be4b7}
+:root[data-panels="dark"] .mini.delete{color:#ffaaaa}
+.theme-panel{display:flex;align-items:center;flex-wrap:wrap;gap:10px 16px;padding:16px 0;border-bottom:1px solid var(--line);margin-bottom:16px}
+.theme-label{font-size:13px;font-weight:700}.theme-options{display:flex;gap:7px;flex-wrap:wrap}
+.theme-choice,.panel-choice{display:flex;align-items:center;gap:7px;padding:8px 10px;background:var(--card);color:var(--text);border:1px solid var(--line);font-size:12px}
+.theme-choice[aria-pressed="true"],.panel-choice[aria-pressed="true"]{border-color:var(--blue);background:var(--accent-soft);box-shadow:0 0 0 1px var(--blue)}
+.theme-swatch{width:15px;height:15px;border-radius:50%;background:var(--swatch);border:1px solid #0002}
+.theme-choice:focus-visible,.panel-choice:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.theme-note{font-size:11px;color:var(--muted)}
+.panel-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-basis:100%;padding-top:10px;border-top:1px solid var(--line)}
+
 </style>
+<script>try {
+const t=localStorage.getItem('wazne-color-theme-v1');document.documentElement.dataset.theme=['blue','pink','lavender','mint','sand'].includes(t)?t:'blue';
+document.documentElement.dataset.panels=localStorage.getItem('wazne-panel-style-v1')==='dark'?'dark':'light';
+const i=localStorage.getItem('wazne-color-intensity-v1');document.documentElement.dataset.intensity=['light','medium','strong'].includes(i)?i:'medium';
+}catch(e){document.documentElement.dataset.theme='blue';document.documentElement.dataset.intensity='medium';}</script>
 </head>
 <body>
 <div class="app">
@@ -243,5 +291,34 @@ $('dateLabel').textContent=new Intl.DateTimeFormat('pl-PL',{month:'long',year:'n
 </script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="cloud.js?v=settings-1"></script>
+<script>
+(function(){const host=document.getElementById("settingsSection");if(!host)return;host.insertAdjacentHTML("afterbegin","<section class=\"theme-panel\" aria-label=\"Kolorystyka aplikacji\"><span class=\"theme-label\">🎨 Kolorystyka</span><div class=\"theme-options\" role=\"group\" aria-label=\"Wybierz motyw\"><button type=\"button\" class=\"theme-choice\" data-theme-choice=\"blue\" aria-pressed=\"false\"><span class=\"theme-swatch\" style=\"--swatch:#80b3ff\" aria-hidden=\"true\"></span>Błękitny</button><button type=\"button\" class=\"theme-choice\" data-theme-choice=\"pink\" aria-pressed=\"false\"><span class=\"theme-swatch\" style=\"--swatch:#ff80ba\" aria-hidden=\"true\"></span>Jasnoróżowy</button><button type=\"button\" class=\"theme-choice\" data-theme-choice=\"lavender\" aria-pressed=\"false\"><span class=\"theme-swatch\" style=\"--swatch:#b58aea\" aria-hidden=\"true\"></span>Lawendowy</button><button type=\"button\" class=\"theme-choice\" data-theme-choice=\"mint\" aria-pressed=\"false\"><span class=\"theme-swatch\" style=\"--swatch:#6bd5a2\" aria-hidden=\"true\"></span>Miętowy</button><button type=\"button\" class=\"theme-choice\" data-theme-choice=\"sand\" aria-pressed=\"false\"><span class=\"theme-swatch\" style=\"--swatch:#deb36d\" aria-hidden=\"true\"></span>Piaskowy</button></div><div class=\"panel-controls\" role=\"group\" aria-label=\"Intensywność koloru\"><span class=\"theme-label\">Intensywność</span><button class=\"panel-choice\" type=\"button\" data-intensity-choice=\"light\" aria-pressed=\"false\">Jasna</button><button class=\"panel-choice\" type=\"button\" data-intensity-choice=\"medium\" aria-pressed=\"false\">Pośrednia</button><button class=\"panel-choice\" type=\"button\" data-intensity-choice=\"strong\" aria-pressed=\"false\">Intensywna</button></div><div class=\"panel-controls\" role=\"group\" aria-label=\"Kolor paneli\"><span class=\"theme-label\">Panele</span><button class=\"panel-choice\" type=\"button\" data-panel-choice=\"light\" aria-pressed=\"true\">☀ Jasne</button><button class=\"panel-choice\" type=\"button\" data-panel-choice=\"dark\" aria-pressed=\"false\">☾ Czarne</button></div><span class=\"theme-note\" id=\"themeNote\">Wybór jest zapamiętywany na tym urządzeniu.</span></section>");
+const themeChoices=document.querySelectorAll('[data-theme-choice]');
+function applyColorTheme(theme,save=false){
+ document.documentElement.dataset.theme=theme;
+ themeChoices.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.themeChoice===theme)));
+ if(save){try{localStorage.setItem('wazne-color-theme-v1',theme);document.getElementById('themeNote').textContent='Wybór jest zapamiętywany na tym urządzeniu.';}catch(e){document.getElementById('themeNote').textContent='Motyw działa. Przeglądarka nie pozwala zapamiętać wyboru.';}}
+}
+themeChoices.forEach(button=>button.addEventListener('click',()=>applyColorTheme(button.dataset.themeChoice,true)));
+applyColorTheme(document.documentElement.dataset.theme||'blue');
+const panelChoices=document.querySelectorAll('[data-panel-choice]');
+function applyPanelStyle(style,save=false){
+ document.documentElement.dataset.panels=style;
+ panelChoices.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.panelChoice===style)));
+ if(save){try{localStorage.setItem('wazne-panel-style-v1',style);document.getElementById('themeNote').textContent='Wybór jest zapamiętywany na tym urządzeniu.';}catch(e){document.getElementById('themeNote').textContent='Wygląd działa. Przeglądarka nie pozwala zapamiętać wyboru.';}}
+}
+panelChoices.forEach(button=>button.addEventListener('click',()=>applyPanelStyle(button.dataset.panelChoice,true)));
+applyPanelStyle(document.documentElement.dataset.panels||'light');
+const intensityChoices=document.querySelectorAll('[data-intensity-choice]');
+function applyIntensity(value,save=false){
+ document.documentElement.dataset.intensity=value;
+ intensityChoices.forEach(button=>button.setAttribute('aria-pressed',String(button.dataset.intensityChoice===value)));
+ if(save){try{localStorage.setItem('wazne-color-intensity-v1',value);document.getElementById('themeNote').textContent='Wybór jest zapamiętywany na tym urządzeniu.';}catch(e){document.getElementById('themeNote').textContent='Wygląd działa. Przeglądarka nie pozwala zapamiętać wyboru.';}}
+}
+intensityChoices.forEach(button=>button.addEventListener('click',()=>applyIntensity(button.dataset.intensityChoice,true)));
+applyIntensity(document.documentElement.dataset.intensity||'medium');
+
+})();
+</script>
 </body>
 </html>
